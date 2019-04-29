@@ -1,3 +1,8 @@
+# Kicad Development Branch Build Image
+# Tried to stay up to date to build KiCad master branch
+# This image is intended to be used as base image
+# for a multi-stage build
+
 FROM ubuntu:16.04
 
 LABEL maintainer="akshmakov@gmail.com"
@@ -19,6 +24,7 @@ RUN apt-get update && apt-get upgrade -y &&\
 	    zlib1g-dev \
 	    libcairo-dev \
 	    libglew-dev \
+	    liboce-ocaf-dev \
 	    libcurl4-openssl-dev \
 	    libglm-dev \
 	    doxygen \
