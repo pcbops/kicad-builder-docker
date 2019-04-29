@@ -1,0 +1,46 @@
+#kicad-builder-docker
+
+Docker Image for Building Kicad
+
+Used in multi-stage builds of kicad
+
+ - `latest` latest build version targeting master branch of KiCad Development
+
+Three Major Tags
+
+ - `v5` Stable Version 5.x Builds
+ - `v4` Stable Version 4.x Builds
+
+
+
+## Using This Image to Build Locally
+
+`$ docker -v $(PWD):/workspace -c 'mkdir build && cd build && cmake .. && make'`
+
+Refer to docker documentation to deal with user permissions issues
+
+
+## Using This Image as part of multi-stage build
+
+
+```Dockerfile
+#Dockerfile
+
+FROM pcbops:kicad-builder
+
+ADD .
+RUN mkdir build &&\
+    cd build    &&\
+    cmake ..    &&\
+    make        &&\
+    make install
+
+
+FROM ubuntu:16.04
+
+COPY from=0 /workspace/build ./build
+
+RUN make install
+
+
+```
